@@ -27,7 +27,7 @@ for /F "tokens=2 delims==" %%i in ('set %_VSCOMNTOOLS_%') do call "%%i\..\..\vc\
 goto :NEXT
 
 :NEXT
-cl /? > test_%1.txt
+cl /? > test_%1.clopts.txt
 cl /nologo /LD /MD /Fetest_%1.dll %_CRTOBJ_% test.c
 cl /nologo /MD /Femain_%1.exe %_CRTOBJ_% main.c
 endlocal

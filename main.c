@@ -11,7 +11,7 @@ int main(int argc, const char*argv[])
 {
 	FILE* file1 = fopen( argv[0], "rb" );
 	int i;
-	int v[]={80, 90, 100, 110};
+	int v[]={70, 80, 90, 100, 110};
 	
 	printf( "our stdin             = %p\n", stdin );
 	printf( "our fileno(our_stdin) = %p\n", _fileno(stdin) );
@@ -36,5 +36,5 @@ int main(int argc, const char*argv[])
 		}
 	}
 	
-	getch();
+	//	getch();
 }
