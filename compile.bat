@@ -31,13 +31,15 @@ goto :NEXT
 :NEXT
 cl /? > test_%1.clopts
 mt /? > test_%1.mtopts
-cl /nologo /LD /MD                     /c /P test.c > test_%1.pp
+cl /nologo /LD /MD /c /P test.c
+move /y test.i test_%1.pp
 cl /nologo /LD /MD /Fetest_%1.dll %_CRTOBJ_% test.c
-cl /nologo /MD                     /c /P main.c > main_%1.pp
+cl /nologo /MD /c /P main.c
+move /y main.i main_%1.pp
 cl /nologo /MD /Femain_%1.exe %_CRTOBJ_% main.c
 
 if exist test_%1.dll.manifest mt.exe -nologo -manifest test_%1.dll.manifest -outputresource:test_%1.dll;2
-if exist main_%1.dll.manifest mt.exe -nologo -manifest main_%1.exe.manifest -outputresource:main_%1.exe;2
+if exist main_%1.exe.manifest mt.exe -nologo -manifest main_%1.exe.manifest -outputresource:main_%1.exe;2
 
 endlocal
 goto :EOF
