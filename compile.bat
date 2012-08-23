@@ -1,4 +1,6 @@
 @echo off
+git clean -fdx
+
 set _CD_=%~dp0
 for %%i in (80 90 100 110 70) do call :SETUP %%i
 goto :EOF
@@ -27,8 +29,15 @@ for /F "tokens=2 delims==" %%i in ('set %_VSCOMNTOOLS_%') do call "%%i\..\..\vc\
 goto :NEXT
 
 :NEXT
-cl /? > test_%1.clopts.txt
+cl /? > test_%1.clopts
+mt /? > test_%1.mtopts
+cl /nologo /LD /MD                     /c /P test.c > test_%1.pp
 cl /nologo /LD /MD /Fetest_%1.dll %_CRTOBJ_% test.c
+cl /nologo /MD                     /c /P main.c > main_%1.pp
 cl /nologo /MD /Femain_%1.exe %_CRTOBJ_% main.c
+
+if exist test_%1.dll.manifest mt.exe -nologo -manifest test_%1.dll.manifest -outputresource:test_%1.dll;2
+if exist main_%1.dll.manifest mt.exe -nologo -manifest main_%1.exe.manifest -outputresource:main_%1.exe;2
+
 endlocal
 goto :EOF
